@@ -7,15 +7,15 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("src\\train.txt");
+        File file = new File("C:\\Users\\glusz\\projektNAI\\projekt1\\src\\train.txt");
         List<Example> trainList = createList(file);
 
-        File testFile = new File("src\\test.txt");
+        File testFile = new File("C:\\Users\\glusz\\projektNAI\\projekt1\\src\\test.txt");
         List<Example> testList = createList(testFile);
 
         Scanner userInput = new Scanner(System.in);
         String user = "";
-        int k =4;
+        int k = 4;
         while (!user.equals("0")) {
             try {
                 System.out.println("Enter K (type k): ");
@@ -43,7 +43,6 @@ public class Main {
                         break;
 
 
-
                 }
                 if (!user.equals("o")) {
                     testList = createList(testFile);
@@ -54,9 +53,7 @@ public class Main {
 
 
                 List<Example> output = compare(trainList, testList, k, lenght);
-//        for(Example e : output){
-//            System.out.println(e.toString());
-//        }
+
                 double correct = 0;
 
 
@@ -68,42 +65,41 @@ public class Main {
 
                 System.out.println((correct / (double) testList.size()) * 100 + "%");
 
-        } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Something went wrong, try again");
             }
-            }
-
+        }
 
 
     }
 
-    static List<Example> compare(List<Example> trainList, List<Example> testList, int k,int length) {
+    static List<Example> compare(List<Example> trainList, List<Example> testList, int k, int length) {
 
         List<Example> outputList = new LinkedList<>();
         new ArrayList();
         new LinkedList();
 
 
-        for(int i = 0; i < testList.size(); ++i) {
+        for (int i = 0; i < testList.size(); ++i) {
             double value = 0.0;
             List<Knn> list = new ArrayList();
-            Map<Double,Integer> mapa = new HashMap<>();
+            Map<Double, Integer> mapa = new HashMap<>();
             int id = 0;
 
-            for(int j = 0; j < trainList.size(); ++j) {
+            for (int j = 0; j < trainList.size(); ++j) {
                 value = 0.0;
 
-                for(int z = 0; z < length-1; ++z) {
-                    value += Math.pow((testList.get(i)).getValueList().get(z) -trainList.get(j).getValueList().get(z), 2.0);
+                for (int z = 0; z < length - 1; ++z) {
+                    value += Math.pow((testList.get(i)).getValueList().get(z) - trainList.get(j).getValueList().get(z), 2.0);
                 }
-//                System.out.println(trainList.get(id).getName());
+
                 list.add(new Knn(trainList.get(id).getName(), value, id));
-//                System.out.println(list.get(id).getName()+" "+list.get(id).getKnn());
+
                 ++id;
             }
 
-            for(Knn knn : list){
+            for (Knn knn : list) {
                 mapa.put(knn.getKnn(), knn.getId());
             }
 
@@ -112,13 +108,13 @@ public class Main {
             String stringArr[] = new String[k];
 
             int[] indexArr = new int[k];
-             for(Map.Entry entry :sortedMap.entrySet()){
-                if (count==k)
+            for (Map.Entry entry : sortedMap.entrySet()) {
+                if (count == k)
                     break;
-//                System.out.println(entry.getKey()+"    "+entry.getValue());
+
                 indexArr[count] = (int) entry.getValue();
                 stringArr[count] = list.get((int) entry.getValue()).getName();
-//                 System.out.println(stringArr[count]);
+
                 count++;
             }
             HashMap<String, Integer> map = new HashMap<>();
@@ -141,44 +137,23 @@ public class Main {
                 }
             }
 
-//            System.out.println("The most common string is: " + mostCommonString);
 
-//            Collection<Integer> smallest= sortedMap.values();
-//            Integer[] smallestArr = smallest.toArray(new Integer[0]);
-//            Arrays.sort(smallestArr);
-//
-//            for(Integer entry : smallestArr)
-//                System.out.println(entry);
+            System.out.println(testList.get(i).toString() + ":  Predicted:   " + mostCommonString);
 
-
-
-
-
-//            for(int p =0; p < k;p++){
-////                System.out.println(list.get(indexArr[p]).toString());
-//            }
-            System.out.println(testList.get(i).toString()+":  Predicted:   "+mostCommonString);
-//            testList.get(i).setName(mostCommonString);
             Example temporary = new Example(testList.get(i).getName(), testList.get(i).getValueList());
             temporary.setName(mostCommonString);
-            outputList.add(temporary);           ;
-//            System.out.println(list.get(24).toString());
+            outputList.add(temporary);
 
-//            System.out.println(list.size());
-//            System.out.println("==================================");
         }
 
         return outputList;
     }
 
 
-
-
-
     static List<Example> createList(double count, int length, String[][] arr) {
         List<Example> list = new ArrayList();
 
-        for(int i = 0; (double)i < count; ++i) {
+        for (int i = 0; (double) i < count; ++i) {
             list.add(new Example(arr[i][length - 1], createList(arr, i, length)));
         }
 
@@ -203,7 +178,7 @@ public class Main {
     static List<Double> createList(String[][] arr, int index, int length) {
         List<Double> temp = new ArrayList();
 
-        for(int i = 0; i < length - 1; ++i) {
+        for (int i = 0; i < length - 1; ++i) {
             temp.add(Double.valueOf(arr[index][i]));
         }
 
@@ -236,7 +211,7 @@ public class Main {
         }
 
         double count;
-        for(count = 0.0; scanner.hasNextLine(); ++count) {
+        for (count = 0.0; scanner.hasNextLine(); ++count) {
             String line = scanner.nextLine();
         }
 
@@ -252,9 +227,9 @@ public class Main {
             throw new RuntimeException(var9);
         }
 
-        String[][] arr = new String[(int)count][lenght];
+        String[][] arr = new String[(int) count][lenght];
 
-        for(int index = 0; scanner.hasNextLine(); ++index) {
+        for (int index = 0; scanner.hasNextLine(); ++index) {
             String line = scanner.nextLine();
             String[] arr2 = line.split("\\,");
             arr[index] = arr2;
