@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\glusz\\projektNAI\\projekt2\\src\\Perceptron\\train.txt");
+        File file = new File("C:\\Users\\s25586\\projektNAI\\projekt2\\src\\Perceptron\\train.txt");
 
 
-        File testFile = new File("C:\\Users\\glusz\\projektNAI\\projekt2\\src\\Perceptron\\test.txt");
+        File testFile = new File("C:\\Users\\s25586\\projektNAI\\projekt2\\src\\Perceptron\\test.txt");
 
         int length = length(file);
         int count = (int) count(file);
