@@ -5,12 +5,12 @@ public class Perceptron {
     private double[] weights;
     private double learningRate;
 
-    public Perceptron(int numInputs, double learningRate) {
-        weights = new double[numInputs];
+    public Perceptron(int count, double learningRate) {
+        weights = new double[count];
         this.learningRate = learningRate;
         // initialize weights randomly
-        for (int i = 0; i < weights.length; i++) {
-            weights[i] = Math.random() * 2 - 1; // range -1 to 1
+        for (int i = 0; i < count; i++) {
+            weights[i] = Math.random() * 1 - 0;
         }
     }
 
@@ -19,12 +19,12 @@ public class Perceptron {
         for (int i = 0; i < inputs.length; i++) {
             sum += inputs[i] * weights[i];
         }
-        return (sum >= 0) ? 1 : -1;
+        return (sum >= 0) ? 1 : 0;
     }
 
-    public void train(Data[] inputs, int maxEpochs) {
+    public void train(Data[] inputs, int epochs) {
         int epoch = 0;
-        while (epoch < maxEpochs) {
+        while (epoch < epochs) {
             int numCorrect = 0;
             for (int i = 0; i < inputs.length; i++) {
                 double[] input = inputs[i].getArr();
@@ -36,24 +36,21 @@ public class Perceptron {
             }
             double accuracy = (double)(numCorrect)/inputs.length;
             System.out.println(accuracy);
-            boolean hasErrors = false;
+
             for (int i = 0; i < inputs.length; i++) {
-                int predicted = predict(inputs[i].getArr());
-                if (predicted != inputs[i].getLabel()) {
-                    updateWeights(inputs[i].getArr(), predicted, inputs[i].getLabel());
-                    hasErrors = true;
+                int guess = predict(inputs[i].getArr());
+                if (guess != inputs[i].getLabel()) {
+                    updateWeights(inputs[i].getArr(), guess, inputs[i].getLabel());
                 }
             }
             epoch++;
-            if (!hasErrors) {
-                break;
-            }
+
         }
     }
 
-    private void updateWeights(double[] inputs, int predicted, int label) {
+    private void updateWeights(double[] arr, int guess, int label) {
         for (int i = 0; i < weights.length; i++) {
-            weights[i] += learningRate * (label - predicted) * inputs[i];
+            weights[i] += learningRate * (label - guess) * arr[i];
         }
     }
 }
