@@ -77,6 +77,8 @@ public class Means {
             for (int i = 0; i < k; i++) {
                 klastry.add(new ArrayList<>());
             }
+            //następny proj
+            //kategoryczny naiwny bayes
 
             //przypisywanie do najbliższych klastrów
             for(Data d : arr){
@@ -93,7 +95,7 @@ public class Means {
                 }
             }
             System.out.println("===========================================");
-            System.out.println("====================="+iteration+"=====================");
+            System.out.println("===================="+iteration+"=====================");
             System.out.println("===========================================");
             iteration+=1;
 
@@ -101,15 +103,16 @@ public class Means {
             for (int i = 0; i < k; i++) {
                 System.out.println("Cluster " + i + ": ");
                 List<String> list = new ArrayList<>();
+                double distance = 0;
                 for (int j = 0; j < klastry.get(i).size(); j++) {
                     list.add(klastry.get(i).get(j).getLabel());
-                    double distance = 0;
                     for(double d: klastry.get(i).get(j).getArr()){
                         distance+=d;
                     }
-                    String formatted = String.format("%.2f", distance);
-                    System.out.println(formatted+"    "+klastry.get(i).get(j).getLabel());
+
                 }
+                String formatted = String.format("%.2f", distance);
+                System.out.println(formatted+"    "+"Cluster "+i);
                 String mostCommon = "";
                 if(list.size()!=0){
                     mostCommon = Collections.max(list, Comparator.comparingInt(s -> Collections.frequency(list, s)));
@@ -124,7 +127,7 @@ public class Means {
                 }
                 double accuracy = 0;
                 if(list.size()!=0)
-                    accuracy = (double)counting/list.size();
+                    accuracy = (double)counting/(list.size()*klastry.get(i).size());
                 accuracy*=100;
                 String formatted = String.format("%.2f", accuracy);
                 System.out.println("The most common string is: " + mostCommon+"    "+ formatted);

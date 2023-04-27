@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        File file = new File("C:\\Users\\glusz\\OneDrive\\Pulpit\\ProjektNaiKmeans\\src\\kmeans\\train.txt");
+        File file = new File("C:\\Users\\s25586\\projektNAI\\ProjektNaiKmeans\\src\\kmeans\\train.txt");
 
 
 
@@ -20,21 +20,15 @@ public class Main {
         System.out.println(length+"   "+count);
 
         Data[] trainData = createTrainArray(file,count,length);
-        System.out.println(trainData.length);
 
-        int  k = 5;
+        System.out.println(trainData.length);
+        System.out.println("Enter k");
+        Scanner scanner = new Scanner(System.in);
+        int i = scanner.nextInt();
+
+        int  k = i;
         Means means = new Means(k);
         means.setCluster(trainData,length,count);
-
-        // Print cluster assignments
-        List<List<Data>> klaster = new ArrayList<>();
-        for (int i = 0; i < k; i++) {
-            klaster.add(new ArrayList<>());
-        }
-        for (Data d : trainData){
-            int clusterIndex = Means.getClosestCluster(d.getArr());
-            klaster.get(clusterIndex).add(d);
-        }
 
 
 
